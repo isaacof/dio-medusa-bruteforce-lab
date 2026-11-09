@@ -2,7 +2,7 @@
 
 **DIO challenge:** implementing a brute-force attack with Medusa in an isolated lab.
 
-[🇧🇷 Português](README.md) · **English**
+[**Português**](README.md) · English
 
 ![Kali Linux](https://img.shields.io/badge/Kali_Linux-Rolling-557C94?style=flat-square&logo=kalilinux&logoColor=white)
 ![Medusa](https://img.shields.io/badge/Medusa-2.3-e2231a?style=flat-square)

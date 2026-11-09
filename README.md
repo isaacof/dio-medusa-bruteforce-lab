@@ -2,7 +2,7 @@
 
 **Desafio DIO:** implementando um ataque de força bruta com Medusa em ambiente isolado.
 
-[🇺🇸 English summary](README.en.md) · **Português**
+[**English summary**](README.en.md) · Português
 
 [![CI](https://github.com/isaacof/dio-medusa-bruteforce-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/isaacof/dio-medusa-bruteforce-lab/actions/workflows/ci.yml)
 ![Kali Linux](https://img.shields.io/badge/Kali_Linux-Rolling-557C94?style=flat-square&logo=kalilinux&logoColor=white)
