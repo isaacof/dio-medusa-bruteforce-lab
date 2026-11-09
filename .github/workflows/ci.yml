@@ -33,7 +33,7 @@ jobs:
         run: python3 scripts/06-soc-triage.py --source evidencias --out reports
 
       - name: Publicar relatório como artefato
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: soc-triage-report
           path: reports/
