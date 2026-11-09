@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: ShellCheck (erros)
         run: shellcheck --severity=error scripts/*.sh
@@ -33,7 +33,7 @@ jobs:
         run: python3 scripts/06-soc-triage.py --source evidencias --out reports
 
       - name: Publicar relatório como artefato
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: soc-triage-report
           path: reports/
