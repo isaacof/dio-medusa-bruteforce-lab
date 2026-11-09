@@ -1,0 +1,37 @@
+name: CI — qualidade e triagem SOC
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    name: Shell, Python, links e relatório
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: ShellCheck (erros)
+        run: shellcheck --severity=error scripts/*.sh
+
+      - name: Sintaxe Python
+        run: python3 -m py_compile scripts/*.py
+
+      - name: Validar links do README e docs
+        run: python3 scripts/07-validar-links.py
+
+      - name: Gerar relatório de triagem SOC
+        run: python3 scripts/06-soc-triage.py --source evidencias --out reports
+
+      - name: Publicar relatório como artefato
+        uses: actions/upload-artifact@v4
+        with:
+          name: soc-triage-report
+          path: reports/
+          if-no-files-found: error

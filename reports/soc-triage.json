@@ -1,0 +1,183 @@
+{
+  "report": "soc-triage",
+  "generated_at": "2026-11-09 21:43:02 UTC",
+  "source": "evidencias",
+  "scope": "laboratório isolado (host-only); nenhum alvo real",
+  "summary": {
+    "findings": 4,
+    "hosts": [
+      "192.168.56.102"
+    ],
+    "services": [
+      "FTP",
+      "HTTP",
+      "SMB"
+    ],
+    "users_enumerated": 35,
+    "shares": [
+      "print$",
+      "tmp",
+      "opt",
+      "IPC$",
+      "ADMIN$"
+    ],
+    "highest_severity": "critical"
+  },
+  "findings": [
+    {
+      "id": "SOC-001",
+      "timestamp": "2026-11-09 18:03:50",
+      "host": "192.168.56.102",
+      "user": "msfadmin",
+      "password": "<redacted>",
+      "module": "ftp",
+      "service": "FTP",
+      "port": 21,
+      "technique": "Força bruta de credenciais",
+      "mitre": [
+        "T1110.001",
+        "T1078"
+      ],
+      "severity": "high",
+      "status": "SUCCESS",
+      "evidence": "ftp/02-ftp-medusa.log"
+    },
+    {
+      "id": "SOC-002",
+      "timestamp": "2026-11-09 18:03:57",
+      "host": "192.168.56.102",
+      "user": "msfadmin",
+      "password": "<redacted>",
+      "module": "smbnt",
+      "service": "SMB",
+      "port": 445,
+      "technique": "Password spraying",
+      "mitre": [
+        "T1110.003",
+        "T1078"
+      ],
+      "severity": "critical",
+      "status": "SUCCESS (ADMIN$ - Access Allowed)",
+      "evidence": "smb/04-smb-spray.log"
+    },
+    {
+      "id": "SOC-003",
+      "timestamp": "2026-11-09 18:03:57",
+      "host": "192.168.56.102",
+      "user": "msfadmin",
+      "password": "<redacted>",
+      "module": "smbnt",
+      "service": "SMB",
+      "port": 445,
+      "technique": "Força bruta direcionada",
+      "mitre": [
+        "T1110.001",
+        "T1078"
+      ],
+      "severity": "critical",
+      "status": "SUCCESS (ADMIN$ - Access Allowed)",
+      "evidence": "smb/04-smb-brute.log"
+    },
+    {
+      "id": "SOC-004",
+      "timestamp": "2026-11-09 18:06:46",
+      "host": "192.168.56.102",
+      "user": "admin",
+      "password": "<redacted>",
+      "module": "web-form",
+      "service": "HTTP",
+      "port": 80,
+      "technique": "Força bruta em formulário web",
+      "mitre": [
+        "T1110.001",
+        "T1078"
+      ],
+      "severity": "critical",
+      "status": "SUCCESS",
+      "evidence": "dvwa/05-dvwa-medusa.log"
+    }
+  ],
+  "services": [
+    {
+      "port": 21,
+      "service": "ftp",
+      "version": "vsftpd 2.3.4",
+      "risk": "Backdoor conhecido (CVE-2011-2523) e protocolo sem criptografia"
+    },
+    {
+      "port": 22,
+      "service": "ssh",
+      "version": "OpenSSH 4.7p1 Debian 8ubuntu1 (protocol 2.0)",
+      "risk": "Versão antiga; autenticação por senha habilitada"
+    },
+    {
+      "port": 23,
+      "service": "telnet",
+      "version": "Linux telnetd",
+      "risk": "Protocolo em texto claro"
+    },
+    {
+      "port": 25,
+      "service": "smtp",
+      "version": "Postfix smtpd",
+      "risk": ""
+    },
+    {
+      "port": 80,
+      "service": "http",
+      "version": "Apache httpd 2.2.8 ((Ubuntu) DAV/2)",
+      "risk": "Versão sem suporte"
+    },
+    {
+      "port": 139,
+      "service": "netbios-ssn",
+      "version": "Samba smbd 3.X - 4.X (workgroup: WORKGROUP)",
+      "risk": ""
+    },
+    {
+      "port": 445,
+      "service": "netbios-ssn",
+      "version": "Samba smbd 3.X - 4.X (workgroup: WORKGROUP)",
+      "risk": ""
+    },
+    {
+      "port": 3306,
+      "service": "mysql",
+      "version": "MySQL 5.0.51a-3ubuntu5",
+      "risk": "Versão antiga exposta na rede"
+    },
+    {
+      "port": 5432,
+      "service": "postgresql",
+      "version": "PostgreSQL DB 8.3.0 - 8.3.7",
+      "risk": ""
+    }
+  ],
+  "enumeration": {
+    "users_count": 35,
+    "users_sample": [
+      "backup",
+      "bin",
+      "bind",
+      "daemon",
+      "dhcp",
+      "distccd",
+      "ftp",
+      "games",
+      "gnats",
+      "irc"
+    ],
+    "shares": [
+      "print$",
+      "tmp",
+      "opt",
+      "IPC$",
+      "ADMIN$"
+    ]
+  },
+  "limitations": [
+    "Análise baseada apenas nas evidências versionadas.",
+    "Horários refletem o relógio da VM atacante.",
+    "Falsos positivos são possíveis; validação humana é obrigatória."
+  ]
+}

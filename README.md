@@ -1,13 +1,32 @@
-# 🛡️ Laboratório de Força Bruta com Medusa — DIO
+# 🛡️ Laboratório de Cibersegurança: Medusa, SOC e Automação com IA
+
+**Desafio DIO:** implementando um ataque de força bruta com Medusa em ambiente isolado.
 
 ![Kali Linux](https://img.shields.io/badge/Kali_Linux-Rolling-557C94?style=flat-square&logo=kalilinux&logoColor=white)
 ![Medusa](https://img.shields.io/badge/Medusa-2.3-e2231a?style=flat-square)
+![Python](https://img.shields.io/badge/Python-3.x-3776AB?style=flat-square&logo=python&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-CI-2088FF?style=flat-square&logo=githubactions&logoColor=white)
+![SOC](https://img.shields.io/badge/SOC-detec%C3%A7%C3%A3o-0ea5e9?style=flat-square)
+![MITRE ATT&CK](https://img.shields.io/badge/MITRE_ATT%26CK-T1110-e11d48?style=flat-square)
 ![VirtualBox](https://img.shields.io/badge/VirtualBox-7.2-183A61?style=flat-square&logo=virtualbox&logoColor=white)
 ![DVWA](https://img.shields.io/badge/DVWA-low-88b04b?style=flat-square)
 ![Licença](https://img.shields.io/badge/licen%C3%A7a-MIT-green?style=flat-square)
 
 > **Projeto educacional executado em ambiente isolado.**
 > Todos os testes foram realizados contra máquinas virtuais próprias (Metasploitable 2 e DVWA), em rede **host-only**, sem exposição à internet e sem alvos reais. As técnicas aqui documentadas são para estudo e devem ser usadas somente com **autorização escrita**.
+
+---
+
+## 💼 Resumo para recrutadores
+
+Projeto prático que conecta **ofensiva autorizada**, **defesa (SOC)** e **automação**:
+
+- **SOC / Blue Team:** análise de logs, triagem, mapeamento **MITRE ATT&CK** e regras de detecção (Sigma, SPL e KQL).
+- **Pentest em laboratório:** reconhecimento com Nmap, enumeração SMB, força bruta e password spraying com Medusa.
+- **Automação com Python:** script que normaliza evidências e gera relatório, JSON para SIEM e prompt sanitizado para IA.
+- **Engenharia e documentação:** 8 documentos técnicos, scripts reproduzíveis, CI com GitHub Actions e evidências reais.
+
+> Todo o conteúdo é de um laboratório isolado. Nenhuma credencial real ou dado de terceiros foi utilizado.
 
 ---
 
@@ -31,7 +50,23 @@ Todo o processo foi reproduzido com scripts versionados, wordlists pequenas e ev
 - [x] Validar tecnicamente os acessos encontrados.
 - [x] Documentar processos técnicos de forma clara, reproduzível e organizada.
 - [x] Reconhecer vulnerabilidades comuns e propor mitigações.
+- [x] Traduzir os ataques em **detecção SOC**: fontes de log, sinais, consultas e severidade.
+- [x] Mapear as técnicas para **MITRE ATT&CK** (`T1110.001`, `T1110.003`, `T1078`).
+- [x] Automatizar a triagem das evidências com **Python** e gerar relatório + JSON.
+- [x] Preparar um **prompt sanitizado para análise assistida por IA**, com guardrails.
+- [x] Demonstrar **CI** com GitHub Actions (lint, links e geração do relatório).
 - [x] Usar o GitHub como portfólio técnico.
+
+### Competências demonstradas
+
+| Competência | Onde está no repositório |
+|---|---|
+| Reconhecimento e enumeração | [`evidencias/nmap/`](evidencias/nmap/) e [`evidencias/smb/`](evidencias/smb/) |
+| Ataques de credenciais | [`scripts/`](scripts/) com Medusa em FTP, SMB e web-form |
+| Análise e triagem SOC | [`reports/soc-triage.md`](reports/soc-triage.md) e [`docs/08-soc-e-automacao.md`](docs/08-soc-e-automacao.md) |
+| Detecção e MITRE ATT&CK | Regras Sigma, SPL, KQL e Wazuh em [`docs/08`](docs/08-soc-e-automacao.md) |
+| Automação e CI | [`scripts/06-soc-triage.py`](scripts/06-soc-triage.py) e [`.github/workflows/ci.yml`](.github/workflows/ci.yml) |
+| Documentação técnica | [`docs/`](docs/) e este README |
 
 ---
 
@@ -413,6 +448,59 @@ Welcome to the password protected area admin
 
 ---
 
+## 🛰️ Do ataque à detecção: SOC e automação com IA
+
+Encontrar a credencial é só metade do exercício. A outra metade é **detectar, triar e responder**. Esta seção transforma as evidências do laboratório em um fluxo de trabalho de SOC.
+
+### Pipeline de triagem
+
+```mermaid
+flowchart LR
+    E["Evidências<br/>Medusa + Nmap + SMB"]:::evidence --> P["06-soc-triage.py"]:::script
+    P --> M["soc-triage.md"]:::report
+    P --> J["soc-triage.json"]:::report
+    P --> A["ai-triage-prompt.md"]:::report
+    M --> S["Analista SOC"]:::human
+    J --> SIEM["SIEM / SOAR"]:::tool
+    A --> LLM["LLM local ou aprovado"]:::tool
+
+    classDef evidence fill:#1f2937,stroke:#9ca3af,color:#fff
+    classDef script fill:#0f172a,stroke:#38bdf8,color:#fff
+    classDef report fill:#052e16,stroke:#22c55e,color:#fff
+    classDef human fill:#2a0f0f,stroke:#ef4444,color:#fff
+    classDef tool fill:#1e1b4b,stroke:#818cf8,color:#fff
+```
+
+### O que a automação entrega
+
+O script [`scripts/06-soc-triage.py`](scripts/06-soc-triage.py) lê os logs já coletados e:
+
+1. normaliza os eventos `ACCOUNT FOUND` (FTP, SMB e web);
+2. classifica técnica e severidade de cada achado;
+3. mapeia para **MITRE ATT&CK** (`T1110.001`, `T1110.003`, `T1078`);
+4. cruza com o Nmap e a enumeração SMB;
+5. **redige credenciais por padrão**;
+6. gera Markdown, JSON e um prompt de IA com guardrails.
+
+```bash
+python3 scripts/06-soc-triage.py --source evidencias --out reports
+```
+
+| Artefato | Uso |
+|---|---|
+| [`reports/soc-triage.md`](reports/soc-triage.md) | Relatório legível para o analista |
+| [`reports/soc-triage.json`](reports/soc-triage.json) | Estrutura para SIEM, SOAR ou dashboard |
+| [`reports/ai-triage-prompt.md`](reports/ai-triage-prompt.md) | Prompt sanitizado para LLM, sem credenciais |
+
+### Detecção e IA com segurança
+
+- Regras **Sigma**, consultas **Splunk SPL**, **Elastic KQL** e **Wazuh** estão em [`docs/08-soc-e-automacao.md`](docs/08-soc-e-automacao.md).
+- O prompt de IA é **estático e sanitizado**: o repositório não chama nenhuma API e não envia dados para fora.
+- Para logs reais, a regra é clara: **sanitizar antes**, preferir **modelo local** e revisar toda saída antes de decidir.
+- A IA acelera a escrita e a classificação inicial; **a validação continua humana**.
+
+---
+
 ## 🧠 Lições aprendidas
 
 - **Enumeração vale mais que força bruta.** Descobrir 35 usuários válidos via SMB reduziu o esforço do ataque a uma única tentativa de senha.
@@ -432,6 +520,9 @@ dio-medusa-bruteforce-lab/
 ├── README.md
 ├── LICENSE
 ├── .gitignore
+├── .github/
+│   └── workflows/
+│       └── ci.yml
 ├── docs/
 │   ├── 01-ambiente.md
 │   ├── 02-reconhecimento.md
@@ -439,7 +530,8 @@ dio-medusa-bruteforce-lab/
 │   ├── 04-smb.md
 │   ├── 05-dvwa.md
 │   ├── 06-mitigacoes.md
-│   └── 07-conclusao.md
+│   ├── 07-conclusao.md
+│   └── 08-soc-e-automacao.md
 ├── scripts/
 │   ├── 00-verificar-ambiente.sh
 │   ├── 01-reconhecimento.sh
@@ -447,7 +539,13 @@ dio-medusa-bruteforce-lab/
 │   ├── 03-smb-enum.sh
 │   ├── 04-smb-medusa.sh
 │   ├── 05-dvwa-medusa.sh
+│   ├── 06-soc-triage.py
+│   ├── 07-validar-links.py
 │   └── 99-validar-acessos.sh
+├── reports/
+│   ├── soc-triage.md
+│   ├── soc-triage.json
+│   └── ai-triage-prompt.md
 ├── wordlists/
 │   ├── users.txt
 │   ├── passwords.txt
@@ -499,6 +597,17 @@ Os scripts aceitam outro alvo via variável de ambiente:
 TARGET=192.168.56.102 ./scripts/02-ftp-medusa.sh
 ```
 
+### Análise SOC sem subir as VMs
+
+As evidências já estão versionadas, então a triagem pode ser reproduzida em qualquer máquina com Python 3:
+
+```bash
+python3 scripts/06-soc-triage.py --source evidencias --out reports
+python3 scripts/07-validar-links.py
+```
+
+O primeiro comando gera o relatório SOC, o JSON e o prompt de IA. O segundo valida os links relativos do README e da documentação.
+
 > ⚠️ Use somente em VMs próprias e isoladas. Nunca aponte estes scripts para sistemas de terceiros.
 
 ---
@@ -521,6 +630,10 @@ TARGET=192.168.56.102 ./scripts/02-ftp-medusa.sh
 - [Metasploitable 2 — Rapid7](https://docs.rapid7.com/metasploit/metasploitable-2/)
 - [OWASP — Brute Force Attack](https://owasp.org/www-community/attacks/Brute_force_attack)
 - [OWASP — Credential Stuffing](https://owasp.org/www-community/attacks/Credential_stuffing)
+- [MITRE ATT&CK — T1110 Brute Force](https://attack.mitre.org/techniques/T1110/)
+- [Sigma — regras de detecção](https://github.com/SigmaHQ/sigma)
+- [Splunk — Search Processing Language](https://docs.splunk.com/Documentation/Splunk/latest/SearchReference)
+- [Wazuh — regras customizadas](https://documentation.wazuh.com/current/user-manual/ruleset/rules/custom.html)
 - [CVE-2011-2523 — vsftpd 2.3.4 backdoor](https://nvd.nist.gov/vuln/detail/CVE-2011-2523)
 - [GitHub Docs — Markdown](https://docs.github.com/pt/get-started/writing-on-github)
 
