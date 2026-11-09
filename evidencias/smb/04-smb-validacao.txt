@@ -1,0 +1,8 @@
+  .                                   D        0  Mon Nov  9 18:03:56 2026
+  ..                                 DR        0  Sun May 20 16:36:12 2012
+  4569.jsvc_up                        R        0  Mon Nov  9 17:52:45 2026
+  .ICE-unix                          DH        0  Mon Nov  9 17:52:09 2026
+  .X11-unix                          DH        0  Mon Nov  9 17:52:33 2026
+  .X0-lock                           HR       11  Mon Nov  9 17:52:33 2026
+
+		7282168 blocks of size 1024. 5436944 blocks available

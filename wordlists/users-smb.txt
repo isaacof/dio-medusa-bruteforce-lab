@@ -1,0 +1,8 @@
+msfadmin
+user
+service
+root
+postgres
+mysql
+www-data
+games

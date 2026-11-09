@@ -1,0 +1,5 @@
+2026-11-09 18:03:57 ACCOUNT CHECK: [smbnt] Host: 192.168.56.102 (1 of 1, 0 complete) User: msfadmin (1 of 1, 0 complete) Password: 123456 (1 of 12 complete)
+2026-11-09 18:03:57 ACCOUNT CHECK: [smbnt] Host: 192.168.56.102 (1 of 1, 0 complete) User: msfadmin (1 of 1, 0 complete) Password: password (2 of 12 complete)
+2026-11-09 18:03:57 ACCOUNT CHECK: [smbnt] Host: 192.168.56.102 (1 of 1, 0 complete) User: msfadmin (1 of 1, 0 complete) Password: Password1 (3 of 12 complete)
+2026-11-09 18:03:57 ACCOUNT CHECK: [smbnt] Host: 192.168.56.102 (1 of 1, 0 complete) User: msfadmin (1 of 1, 0 complete) Password: msfadmin (4 of 12 complete)
+2026-11-09 18:03:57 ACCOUNT FOUND: [smbnt] Host: 192.168.56.102 User: msfadmin Password: msfadmin [SUCCESS (ADMIN$ - Access Allowed)]

