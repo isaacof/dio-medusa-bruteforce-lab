@@ -1,6 +1,6 @@
 # Relatório de Triagem SOC — Laboratório Medusa
 
-> Gerado automaticamente em **2026-11-09 21:45:51 UTC** a partir de `evidencias`.
+> Gerado automaticamente em **2026-11-09 21:59:30 UTC** a partir de `evidencias`.
 > Laboratório isolado em rede host-only. Nenhum alvo real foi consultado.
 
 ## Resumo executivo

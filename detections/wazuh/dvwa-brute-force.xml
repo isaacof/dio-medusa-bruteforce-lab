@@ -1,0 +1,10 @@
+<group name="web,bruteforce,">
+  <rule id="100210" level="10" frequency="20" timeframe="300">
+    <if_matched_sid>31103</if_matched_sid>
+    <same_source_ip />
+    <description>Possível força bruta em formulário web (DVWA)</description>
+    <mitre>
+      <id>T1110</id>
+    </mitre>
+  </rule>
+</group>

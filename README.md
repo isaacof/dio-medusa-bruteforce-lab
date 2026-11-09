@@ -2,6 +2,9 @@
 
 **Desafio DIO:** implementando um ataque de força bruta com Medusa em ambiente isolado.
 
+[🇺🇸 English summary](README.en.md) · **Português**
+
+[![CI](https://github.com/isaacof/dio-medusa-bruteforce-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/isaacof/dio-medusa-bruteforce-lab/actions/workflows/ci.yml)
 ![Kali Linux](https://img.shields.io/badge/Kali_Linux-Rolling-557C94?style=flat-square&logo=kalilinux&logoColor=white)
 ![Medusa](https://img.shields.io/badge/Medusa-2.3-e2231a?style=flat-square)
 ![Python](https://img.shields.io/badge/Python-3.x-3776AB?style=flat-square&logo=python&logoColor=white)
@@ -64,7 +67,7 @@ Todo o processo foi reproduzido com scripts versionados, wordlists pequenas e ev
 | Reconhecimento e enumeração | [`evidencias/nmap/`](evidencias/nmap/) e [`evidencias/smb/`](evidencias/smb/) |
 | Ataques de credenciais | [`scripts/`](scripts/) com Medusa em FTP, SMB e web-form |
 | Análise e triagem SOC | [`reports/soc-triage.md`](reports/soc-triage.md) e [`docs/08-soc-e-automacao.md`](docs/08-soc-e-automacao.md) |
-| Detecção e MITRE ATT&CK | Regras Sigma, SPL, KQL e Wazuh em [`docs/08`](docs/08-soc-e-automacao.md) |
+| Detecção e MITRE ATT&CK | Regras Sigma e Wazuh em [`detections/`](detections/) e consultas em [`docs/08`](docs/08-soc-e-automacao.md) |
 | Automação e CI | [`scripts/06-soc-triage.py`](scripts/06-soc-triage.py) e [`.github/workflows/ci.yml`](.github/workflows/ci.yml) |
 | Documentação técnica | [`docs/`](docs/) e este README |
 
@@ -494,8 +497,9 @@ python3 scripts/06-soc-triage.py --source evidencias --out reports
 
 ### Detecção e IA com segurança
 
-- Regras **Sigma**, consultas **Splunk SPL**, **Elastic KQL** e **Wazuh** estão em [`docs/08-soc-e-automacao.md`](docs/08-soc-e-automacao.md).
+- Regras **Sigma** e **Wazuh** prontas para uso estão em [`detections/`](detections/); consultas **Splunk SPL** e **Elastic KQL** estão em [`docs/08-soc-e-automacao.md`](docs/08-soc-e-automacao.md).
 - O prompt de IA é **estático e sanitizado**: o repositório não chama nenhuma API e não envia dados para fora.
+- Se você tiver **Ollama** instalado, rode a análise local com `./scripts/08-ai-triage.sh` — nenhum dado sai da máquina.
 - Para logs reais, a regra é clara: **sanitizar antes**, preferir **modelo local** e revisar toda saída antes de decidir.
 - A IA acelera a escrita e a classificação inicial; **a validação continua humana**.
 
@@ -518,12 +522,22 @@ python3 scripts/06-soc-triage.py --source evidencias --out reports
 ```text
 dio-medusa-bruteforce-lab/
 ├── README.md
+├── README.en.md
 ├── SECURITY.md
 ├── LICENSE
+├── Makefile
 ├── .gitignore
 ├── .github/
 │   └── workflows/
 │       └── ci.yml
+├── detections/
+│   ├── README.md
+│   ├── sigma/
+│   │   ├── ftp-brute-force.yml
+│   │   ├── smb-password-spraying.yml
+│   │   └── web-brute-force.yml
+│   └── wazuh/
+│       └── dvwa-brute-force.xml
 ├── docs/
 │   ├── README.md
 │   ├── 01-ambiente.md
@@ -543,7 +557,10 @@ dio-medusa-bruteforce-lab/
 │   ├── 05-dvwa-medusa.sh
 │   ├── 06-soc-triage.py
 │   ├── 07-validar-links.py
+│   ├── 08-ai-triage.sh
 │   └── 99-validar-acessos.sh
+├── tests/
+│   └── test_soc_triage.py
 ├── reports/
 │   ├── soc-triage.md
 │   ├── soc-triage.json

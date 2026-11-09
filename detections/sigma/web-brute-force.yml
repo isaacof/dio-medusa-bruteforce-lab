@@ -1,0 +1,28 @@
+title: Força bruta em formulário web
+id: 3c8d1f42-7a9e-4b61-b0d4-webrute00001
+status: experimental
+description: Detecta picos de requisições ao endpoint de login do DVWA.
+references:
+  - https://attack.mitre.org/techniques/T1110/001/
+author: Isaac Silva
+date: 2026-11-09
+logsource:
+  category: webserver
+detection:
+  selection:
+    cs-method: GET
+    cs-uri-stem|contains: "/dvwa/vulnerabilities/brute/"
+    sc-status: 200
+  timeframe: 5m
+  condition: selection | count() by c-ip > 20
+fields:
+  - c-ip
+  - cs-uri-stem
+  - sc-status
+falsepositives:
+  - Testes de carga ou de QA no endpoint
+  - Usuário legítimo com senha expirada em repetição
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1110.001

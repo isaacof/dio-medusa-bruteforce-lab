@@ -1,0 +1,28 @@
+title: Múltiplas falhas de autenticação FTP
+id: 6f1c2a7e-4b2d-4f8a-9c31-ftpbrute0001
+status: experimental
+description: Detecta muitas falhas de login FTP do mesmo IP em curto intervalo.
+references:
+  - https://attack.mitre.org/techniques/T1110/001/
+author: Isaac Silva
+date: 2026-11-09
+logsource:
+  product: linux
+  service: vsftpd
+detection:
+  selection:
+    message|contains:
+      - "FAIL LOGIN"
+      - "authentication failure"
+  timeframe: 5m
+  condition: selection | count() by src_ip > 5
+fields:
+  - src_ip
+  - user
+falsepositives:
+  - Aplicações legítimas com credencial expirada
+  - Scripts de monitoração sem credencial válida
+level: high
+tags:
+  - attack.credential_access
+  - attack.t1110.001

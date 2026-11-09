@@ -59,6 +59,8 @@ Essas técnicas ajudam a priorizar alertas e a conversar com outras equipes usan
 
 As regras abaixo são **ponto de partida**. Limiares precisam ser ajustados à linha de base de cada ambiente para reduzir falsos positivos.
 
+> As versões prontas para uso estão em [`detections/`](../detections/): três regras Sigma e uma regra Wazuh.
+
 ### 4.1 Sigma — força bruta em FTP
 
 ```yaml
@@ -224,10 +226,13 @@ O arquivo `reports/ai-triage-prompt.md` contém:
 ### Exemplo com LLM local (Ollama)
 
 ```bash
-ollama run llama3.2 < reports/ai-triage-prompt.md
+ollama pull llama3.2
+./scripts/08-ai-triage.sh
 ```
 
-> O modelo precisa estar instalado. Use um modelo local quando os logs não puderem sair da organização.
+O script [`scripts/08-ai-triage.sh`](../scripts/08-ai-triage.sh) envia o prompt sanitizado para o Ollama local e salva a resposta em `reports/ai-triage-output.md`. Nenhum dado sai da máquina.
+
+> O modelo precisa estar instalado. Use um modelo local quando os logs não puderem sair da organização. A saída da IA é uma sugestão: revise antes de usar.
 
 ### Checklist de segurança antes de usar IA
 

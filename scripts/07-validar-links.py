@@ -13,7 +13,10 @@ from urllib.parse import unquote
 
 ROOT = Path(__file__).resolve().parent.parent
 LINK_RE = re.compile(r"!?\[[^\]]*\]\(([^)\s]+)(?:\s+\"[^\"]*\")?\)")
-FILES = [ROOT / "README.md"] + sorted((ROOT / "docs").glob("*.md"))
+FILES = [ROOT / "README.md"]
+if (ROOT / "README.en.md").exists():
+    FILES.append(ROOT / "README.en.md")
+FILES += sorted((ROOT / "docs").glob("*.md"))
 
 
 def main() -> int:

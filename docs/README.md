@@ -33,6 +33,13 @@
 - [Triagem SOC em JSON](../reports/soc-triage.json)
 - [Prompt para análise assistida por IA](../reports/ai-triage-prompt.md)
 
+## Recursos relacionados
+
+- [Regras de detecção](../detections/) — Sigma e Wazuh
+- [Scripts](../scripts/) — ataques, triagem, links e IA local
+- [Testes](../tests/) — unidade e integração
+- [Makefile](../Makefile) — atalhos de execução
+
 ## Convenções
 
 - Todos os testes foram feitos em **rede host-only**, sem alvos reais.
