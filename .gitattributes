@@ -1,0 +1,10 @@
+# Normaliza quebras de linha: scripts e docs em LF para funcionar em Linux/macOS/WSL.
+* text=auto eol=lf
+
+# Binários
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.zip binary
+*.pdf binary

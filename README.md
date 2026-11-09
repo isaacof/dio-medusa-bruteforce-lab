@@ -526,6 +526,7 @@ dio-medusa-bruteforce-lab/
 ├── SECURITY.md
 ├── LICENSE
 ├── Makefile
+├── .gitattributes
 ├── .gitignore
 ├── .github/
 │   └── workflows/
