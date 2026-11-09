@@ -518,12 +518,14 @@ python3 scripts/06-soc-triage.py --source evidencias --out reports
 ```text
 dio-medusa-bruteforce-lab/
 ├── README.md
+├── SECURITY.md
 ├── LICENSE
 ├── .gitignore
 ├── .github/
 │   └── workflows/
 │       └── ci.yml
 ├── docs/
+│   ├── README.md
 │   ├── 01-ambiente.md
 │   ├── 02-reconhecimento.md
 │   ├── 03-ftp.md
@@ -560,6 +562,23 @@ dio-medusa-bruteforce-lab/
     ├── dvwa/
     └── images/
 ```
+
+---
+
+## 📚 Documentação
+
+| Documento | Conteúdo |
+|---|---|
+| [01 — Ambiente](docs/01-ambiente.md) | VirtualBox, rede host-only, Kali, Metasploitable 2 e DVWA |
+| [02 — Reconhecimento](docs/02-reconhecimento.md) | Nmap, serviços expostos e leitura de risco |
+| [03 — FTP](docs/03-ftp.md) | Força bruta, validação e mitigação |
+| [04 — SMB](docs/04-smb.md) | Enumeração, sessão nula, spraying e hardening |
+| [05 — DVWA](docs/05-dvwa.md) | Sessão web, módulo `web-form` e defesas |
+| [06 — Mitigações](docs/06-mitigacoes.md) | Controles preventivos, detectivos e resposta |
+| [07 — Conclusão](docs/07-conclusao.md) | Resultados, aprendizados e próximos passos |
+| [08 — SOC e IA](docs/08-soc-e-automacao.md) | MITRE ATT&CK, Sigma, SPL, KQL, Wazuh e automação |
+
+Índice completo: [`docs/README.md`](docs/README.md).
 
 ---
 
