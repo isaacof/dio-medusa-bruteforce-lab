@@ -1,11 +1,11 @@
 # Relatório de Triagem SOC — Laboratório Medusa
 
-> Gerado automaticamente em **2026-11-09 21:45:11 UTC** a partir de `evidencias`.
+> Gerado automaticamente em **2026-11-09 21:45:51 UTC** a partir de `evidencias`.
 > Laboratório isolado em rede host-only. Nenhum alvo real foi consultado.
 
 ## Resumo executivo
 
-- **4** login(s) válido(s) identificado(s) nas evidências.
+- **4** evento(s) de autenticação bem-sucedida identificado(s) nas evidências.
 - **1** host(s) envolvido(s): `192.168.56.102`.
 - **3** serviço(s) comprometido(s): FTP, HTTP, SMB.
 - **35** usuário(s) enumerado(s) via SMB e **5** compartilhamento(s) listado(s).

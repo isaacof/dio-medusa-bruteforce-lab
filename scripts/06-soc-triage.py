@@ -259,7 +259,7 @@ def build_markdown(
     lines.append("")
     lines.append("## Resumo executivo")
     lines.append("")
-    lines.append(f"- **{total}** login(s) válido(s) identificado(s) nas evidências.")
+    lines.append(f"- **{total}** evento(s) de autenticação bem-sucedida identificado(s) nas evidências.")
     lines.append(f"- **{len(hosts)}** host(s) envolvido(s): {', '.join(f'`{h}`' for h in hosts) or '—'}.")
     lines.append(f"- **{len(services_affected)}** serviço(s) comprometido(s): {', '.join(services_affected) or '—'}.")
     lines.append(f"- **{enumeration['users_count']}** usuário(s) enumerado(s) via SMB e **{len(enumeration['shares'])}** compartilhamento(s) listado(s).")
