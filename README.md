@@ -523,12 +523,14 @@ python3 scripts/06-soc-triage.py --source evidencias --out reports
 dio-medusa-bruteforce-lab/
 ├── README.md
 ├── README.en.md
+├── CHANGELOG.md
 ├── SECURITY.md
 ├── LICENSE
 ├── Makefile
 ├── .gitattributes
 ├── .gitignore
 ├── .github/
+│   ├── dependabot.yml
 │   └── workflows/
 │       └── ci.yml
 ├── detections/
